@@ -39,7 +39,29 @@ curl "$API/api/health"
 # {"status":"ok"}
 ```
 
-### 3.2 Endpoints servis par MongoDB
+### 3.2 Tests d'intégration de connexion aux bases
+
+`/api/health` répond `ok` même si une base est inaccessible : il ne prouve donc pas la connexion. Pour vérifier directement MongoDB **et** Neo4j, utilisez les tests d'intégration de [`backend/tests/test_connexions.py`](https://github.com/nosql-esigelec/2026-2027-rouen-portfolio-blackhat/blob/main/backend/tests/test_connexions.py) :
+
+| Test | Ce qu'il vérifie |
+|---|---|
+| `test_connexion_mongo` | `ping` sur le serveur MongoDB, nom de la base (`MONGO_DB`) et lecture des collections (droits d'accès). |
+| `test_connexion_neo4j` | `verify_connectivity()` du driver puis exécution de `RETURN 1 AS ok`. |
+
+Lancement, depuis `backend/`, avec un `.env` contenant `MONGO_URL`, `MONGO_DB`, `NEO4J_URI`, `NEO4J_USER` et `NEO4J_PASSWORD` :
+
+```bash
+cd backend
+uv run pytest tests/test_connexions.py -v
+```
+
+- Les deux tests `PASSED` : les deux bases sont joignables avec ces identifiants.
+- Un test `FAILED` : la base concernée est inaccessible (URI, identifiants ou réseau). Par exemple, si Neo4j est arrêté ou mal configuré, `test_connexion_neo4j` échoue alors que `test_connexion_mongo` passe.
+- Un test `SKIPPED` : les variables de cette base ne sont pas définies dans le `.env`.
+
+La suite complète (`just test`, ou `uv run pytest -q` depuis `backend/`) teste aussi les routes, le seed et les requêtes du graphe.
+
+### 3.3 Endpoints servis par MongoDB
 
 | Req. | Endpoint | Exemple de test | Résultat attendu |
 |---|---|---|---|
@@ -51,7 +73,7 @@ curl "$API/api/health"
 | R3 | `GET /api/stats/competences` | `curl "$API/api/stats/competences"` | Statistiques par compétence (`nb_projets`, `derniere_annee`) |
 | R6 | `GET /api/stats/competences?limit=5` | `curl "$API/api/stats/competences?limit=5"` | Top 5 des compétences |
 
-### 3.3 Endpoints servis par Neo4j
+### 3.4 Endpoints servis par Neo4j
 
 | Req. | Endpoint | Exemple de test | Résultat attendu |
 |---|---|---|---|
@@ -61,7 +83,7 @@ curl "$API/api/health"
 
 Un code `404` « Candidat introuvable » ou un nœud absent indique que la base n'a pas été alimentée ; une erreur `500` indique un problème de connexion.
 
-### 3.4 Requêtes à exécuter directement dans les bases
+### 3.5 Requêtes à exécuter directement dans les bases
 
 **MongoDB (mongosh / Atlas Data Explorer)** :
 
