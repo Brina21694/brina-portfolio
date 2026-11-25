@@ -1,0 +1,66 @@
+{
+  "candidat_slug": "bibou172",
+  "prenom": "Beleive",
+  "nom": "Tossou",
+  "titre": "Data Analyst / Data Engineer — Alternante Renault Sandouville",
+  "bio": "Étudiante en cycle ingénieur à l'ESIGELEC et alternante Data Analyst chez Renault Sandouville (département Peinture). Passionnée par le Big Data, la BI (Looker, Power BI, BigQuery) et les architectures NoSQL polyglottes (MongoDB, Neo4j).",
+  "email": "beleive.tossou@groupe-esigelec.org",
+  "liens": {
+    "github": "https://github.com/Bibou172",
+    "linkedin": "https://www.linkedin.com/in/beleive-tossou"
+  },
+  "experiences": [
+    {
+      "entreprise": "Renault Sandouville",
+      "poste": "Data Analyst (Alternance 24 mois — Département Peinture)",
+      "lieu": "Sandouville",
+      "debut": "2025-09",
+      "fin": null,
+      "description": "Conception et maintenance de dashboards Looker pour le suivi des flux de production et l'analyse des arrêts de chaînes en atelier Peinture. Extraction, structuration et analyse de données industrielles.",
+      "competences": ["looker", "sql", "bigquery", "python"]
+    },
+    {
+      "entreprise": "Direction Nationale des Marchés Publics",
+      "poste": "Stage académique en gestion de base de données",
+      "lieu": "Cotonou, Bénin",
+      "debut": "2024-06",
+      "fin": "2024-08",
+      "description": "Modélisation d'une base de données pour l'informatisation du système de gestion avec MERISE. Élaboration du dictionnaire de données, MCD, MLD et MPD avec SAP PowerDesigner.",
+      "competences": ["sql", "merise", "oracle"]
+    }
+  ],
+  "formations": [
+    {
+      "ecole": "ESIGELEC Rouen",
+      "diplome": "Cycle Ingénieur — Big Data & Transformation Numérique",
+      "lieu": "Saint-Étienne-du-Rouvray",
+      "debut": "2024-09",
+      "fin": "2027-06"
+    },
+    {
+      "ecole": "ESIGELEC Rouen",
+      "diplome": "Cycle Préparatoire Intégré aux études d'ingénieur",
+      "lieu": "Saint-Étienne-du-Rouvray",
+      "debut": "2021-09",
+      "fin": "2023-06"
+    }
+  ],
+  "competences": [
+    { "skill_slug": "python", "nom": "Python", "domaine": "langages", "niveau": 4 },
+    { "skill_slug": "sql", "nom": "SQL", "domaine": "langages", "niveau": 4 },
+    { "skill_slug": "java", "nom": "Java", "domaine": "langages", "niveau": 3 },
+    { "skill_slug": "c", "nom": "Langage C", "domaine": "langages", "niveau": 3 },
+    { "skill_slug": "r", "nom": "R", "domaine": "langages", "niveau": 3 },
+    { "skill_slug": "looker", "nom": "Looker", "domaine": "bi-visualisation", "niveau": 4 },
+    { "skill_slug": "power-bi", "nom": "Power BI", "domaine": "bi-visualisation", "niveau": 4 },
+    { "skill_slug": "bigquery", "nom": "BigQuery", "domaine": "data-bigdata", "niveau": 4 },
+    { "skill_slug": "talend", "nom": "Talend", "domaine": "data-bigdata", "niveau": 3 },
+    { "skill_slug": "hadoop", "nom": "Hadoop", "domaine": "data-bigdata", "niveau": 3 },
+    { "skill_slug": "mongodb", "nom": "MongoDB", "domaine": "bases-de-donnees", "niveau": 4 },
+    { "skill_slug": "neo4j", "nom": "Neo4j", "domaine": "bases-de-donnees", "niveau": 4 },
+    { "skill_slug": "oracle", "nom": "Oracle DB / PL-SQL", "domaine": "bases-de-donnees", "niveau": 3 },
+    { "skill_slug": "merise", "nom": "MERISE / PowerDesigner", "domaine": "bases-de-donnees", "niveau": 4 },
+    { "skill_slug": "fastapi", "nom": "FastAPI", "domaine": "backend", "niveau": 4 },
+    { "skill_slug": "docker", "nom": "Docker", "domaine": "devops", "niveau": 4 }
+  ]
+}
