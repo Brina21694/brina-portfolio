@@ -1,0 +1,142 @@
+{
+  "candidat_slug": "cedric-akle",
+  "prenom": "Cédric",
+  "nom": "Akle",
+  "titre": "Élève-ingénieur Data Analyst — ESIGELEC",
+  "bio": "Étudiant ingénieur en Data Analytics, spécialisé en structuration et automatisation de données. J'ai travaillé en environnement bancaire sur des problématiques RH : transformation de données Excel vers SQL et création d'indicateurs décisionnels. Rigoureux et orienté résultats, je souhaite contribuer à des projets data à fort impact.",
+  "email": "cedric.akle@groupe-esigelec.org",
+  "liens": {
+    "github": "https://github.com/nicktoudonou-spec",
+    "linkedin": "https://www.linkedin.com/in/c%C3%A9dric-akle-211923356/"
+  },
+  "experiences": [
+    {
+      "entreprise": "Crédit Agricole",
+      "poste": "Data Analyst — Stage",
+      "lieu": "Toulouse",
+      "debut": "2026-04",
+      "fin": "2026-09",
+      "description": "Analyse de données RH (effectifs, turnover, absentéisme) pour produire des KPI décisionnels. Formalisation des règles métier pour fiabiliser le reporting, migration de traitements Excel (macros) vers SQL (DuckDB), modèles prédictifs et dashboards MicroStrategy.",
+      "competences": [
+        "sql",
+        "duckdb",
+        "excel",
+        "microstrategy"
+      ]
+    },
+    {
+      "entreprise": "Ministère du Commerce et de l'Industrie",
+      "poste": "Data Analyst — Stage",
+      "lieu": "Cotonou",
+      "debut": "2024-06",
+      "fin": "2024-08",
+      "description": "Collecte, structuration et fiabilisation de données sectorielles, traitements récurrents automatisés sous Excel, et dashboards Power BI pour le suivi de 2 indicateurs économiques clés.",
+      "competences": [
+        "powerbi",
+        "excel"
+      ]
+    }
+  ],
+  "formations": [
+    {
+      "ecole": "ESIGELEC",
+      "diplome": "Cycle ingénieur — Big Data pour la Transformation Numérique (BDTN)",
+      "lieu": "Saint-Étienne-du-Rouvray",
+      "debut": "2024-09",
+      "fin": "2027-06"
+    },
+    {
+      "ecole": "Classes préparatoires conjointes",
+      "diplome": "Cycle préparatoire scientifique (informatique, mathématiques, physique)",
+      "lieu": "Cotonou",
+      "debut": "2022-09",
+      "fin": "2024-06"
+    }
+  ],
+  "competences": [
+    {
+      "skill_slug": "python",
+      "nom": "Python",
+      "domaine": "langages",
+      "niveau": 3
+    },
+    {
+      "skill_slug": "sql",
+      "nom": "SQL",
+      "domaine": "bases-de-donnees",
+      "niveau": 4
+    },
+    {
+      "skill_slug": "java",
+      "nom": "Java",
+      "domaine": "langages",
+      "niveau": 2
+    },
+    {
+      "skill_slug": "pandas",
+      "nom": "Pandas",
+      "domaine": "data-analysis",
+      "niveau": 3
+    },
+    {
+      "skill_slug": "numpy",
+      "nom": "NumPy",
+      "domaine": "data-analysis",
+      "niveau": 2
+    },
+    {
+      "skill_slug": "excel",
+      "nom": "Excel",
+      "domaine": "data-analysis",
+      "niveau": 4
+    },
+    {
+      "skill_slug": "duckdb",
+      "nom": "DuckDB",
+      "domaine": "bases-de-donnees",
+      "niveau": 3
+    },
+    {
+      "skill_slug": "mongodb",
+      "nom": "MongoDB",
+      "domaine": "bases-de-donnees",
+      "niveau": 3
+    },
+    {
+      "skill_slug": "neo4j",
+      "nom": "Neo4j",
+      "domaine": "bases-de-donnees",
+      "niveau": 2
+    },
+    {
+      "skill_slug": "powerbi",
+      "nom": "Power BI",
+      "domaine": "data-visualization",
+      "niveau": 4
+    },
+    {
+      "skill_slug": "microstrategy",
+      "nom": "MicroStrategy",
+      "domaine": "data-visualization",
+      "niveau": 3
+    },
+    {
+      "skill_slug": "fastapi",
+      "nom": "FastAPI",
+      "domaine": "backend",
+      "niveau": 2
+    },
+    {
+      "skill_slug": "scikit-learn",
+      "nom": "Scikit-learn",
+      "domaine": "machine-learning",
+      "niveau": 2
+    },
+    {
+      "skill_slug": "git",
+      "nom": "Git / GitHub",
+      "domaine": "outils",
+      "niveau": 3
+    }
+  ]
+}

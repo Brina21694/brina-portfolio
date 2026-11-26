@@ -1,0 +1,330 @@
+/* ==========================================================================
+   DATA WORLD — interface intégrée au monde 3D (mode Explore)
+   ========================================================================== */
+
+body.is-world { overflow: hidden; }
+body.is-world .site-header, body.is-world .rail, body.is-world .progress { display: none; }
+
+.dw { --zone: var(--dusk); position: fixed; inset: 0; background: #07050B; color: var(--ivory); overflow: hidden; }
+.dw__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+
+/* L'interface n'apparaît qu'une fois entré */
+.dw__top, .dw-nav, .dw-objects, .dw-map, .dw-guide, .dw-tags { opacity: 0; transition: opacity 0.8s var(--ease) 0.6s, transform 0.8s var(--ease) 0.6s; }
+.dw.is-live .dw__top, .dw.is-live .dw-nav, .dw.is-live .dw-objects, .dw.is-live .dw-map, .dw.is-live .dw-guide, .dw.is-live .dw-tags { opacity: 1; }
+.dw.is-travel .dw-objects, .dw.is-travel .dw-guide { opacity: 0 !important; transition-delay: 0s; }
+.dw [hidden] { display: none !important; }
+
+/* ---------- Barre du haut : marque, position, actions ---------- */
+.dw__top {
+  position: absolute; inset: 0 0 auto 0; z-index: 10;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+  padding: 18px var(--pad);
+  background: linear-gradient(180deg, rgba(7,5,11,0.7), rgba(7,5,11,0));
+}
+.dw__brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.dw__brand strong { display: block; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 16px; letter-spacing: -0.02em; line-height: 1; }
+.dw__brand small { color: var(--zone); transition: color 0.6s; }
+.dw__mark { width: 16px; height: 16px; background: var(--zone); clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); transition: background 0.6s, transform 0.6s var(--ease); }
+.dw__brand:hover .dw__mark { transform: rotate(90deg); }
+.dw__where {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px 8px 8px;
+  background: rgba(10, 8, 16, 0.55); backdrop-filter: blur(10px);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.dw__where-num { background: var(--zone); color: var(--night); padding: 3px 7px; transition: background 0.6s; }
+.dw__coord { color: var(--mist); min-width: 112px; }
+.dw__actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+.dw__api[hidden] { display: none; }
+.dw__api { display: inline-flex; align-items: center; gap: 8px; color: #FF8A8A; }
+.dw__api i { width: 7px; height: 7px; background: #FF4D4D; box-shadow: 0 0 10px #FF4D4D; }
+
+/* ---------- Navigation "ascenseur" : les destinations ---------- */
+.dw-nav {
+  position: absolute; left: 50%; bottom: 22px; z-index: 10;
+  transform: translateX(-50%);
+  display: flex; gap: 6px;
+  padding: 6px;
+  background: rgba(10, 8, 16, 0.6); backdrop-filter: blur(14px) saturate(1.2);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+.dw-nav__stop {
+  position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: baseline;
+  min-width: 150px; padding: 10px 16px 12px 12px;
+  text-decoration: none; color: var(--ivory);
+  transition: background 0.3s, color 0.3s;
+  isolation: isolate;
+}
+.dw-nav__stop::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--z); transform: skewX(-14deg) scaleX(0); transform-origin: left;
+  transition: transform 0.45s var(--ease-snap);
+}
+.dw-nav__stop .mono { color: var(--z); grid-row: span 2; transition: color 0.3s; }
+.dw-nav__stop strong { font-family: var(--display); font-weight: 700; text-transform: uppercase; font-size: 14px; letter-spacing: -0.01em; line-height: 1.1; }
+.dw-nav__stop small { color: var(--mist); font-size: 12px; transition: color 0.3s; }
+.dw-nav__stop:hover::before, .dw-nav__stop[aria-current="true"]::before { transform: skewX(-14deg) scaleX(1); }
+.dw-nav__stop:hover, .dw-nav__stop[aria-current="true"] { color: var(--night); }
+.dw-nav__stop:hover .mono, .dw-nav__stop[aria-current="true"] .mono,
+.dw-nav__stop:hover small, .dw-nav__stop[aria-current="true"] small { color: var(--night); }
+
+/* ---------- Objets de la zone (accès clavier / mobile) ---------- */
+.dw-objects { position: absolute; left: var(--pad); top: 92px; z-index: 9; width: 250px; }
+.dw-objects__toggle {
+  display: flex; justify-content: space-between; align-items: center; width: 100%;
+  background: none; border: 0; border-bottom: 1px solid rgba(242,238,229,0.25); padding: 0 0 10px; cursor: pointer; color: var(--zone);
+}
+.dw-objects__toggle i { width: 10px; height: 2px; background: currentColor; }
+.dw-objects ul { display: grid; gap: 2px; margin-top: 8px; max-height: 46vh; overflow: auto; scrollbar-width: none; }
+.dw-objects.is-closed ul { display: none; }
+.dw-objects button {
+  display: grid; gap: 2px; width: 100%; text-align: left; cursor: pointer;
+  background: rgba(10, 8, 16, 0.45); backdrop-filter: blur(8px); border: 0;
+  padding: 10px 12px; border-left: 2px solid transparent;
+  transition: background 0.25s, border-color 0.25s, transform 0.3s var(--ease);
+}
+.dw-objects button strong { font-weight: 600; font-size: 14px; line-height: 1.25; }
+.dw-objects button .mono { color: var(--mist); font-size: 10px; }
+.dw-objects button:hover, .dw-objects button:focus-visible { background: rgba(10, 8, 16, 0.8); border-left-color: var(--zone); transform: translateX(4px); }
+.dw-objects__empty { color: var(--mist); padding: 10px 0; }
+
+/* ---------- Mini-carte : où suis-je ? ---------- */
+.dw-map { position: absolute; right: var(--pad); bottom: 22px; z-index: 9; width: 150px; height: 140px; overflow: visible; }
+.dw-map__route { stroke: rgba(242,238,229,0.25); stroke-width: 1; stroke-dasharray: 2 3; fill: none; }
+.dw-map__zone circle { fill: rgba(10,8,16,0.7); stroke: rgba(242,238,229,0.5); stroke-width: 1.2; transition: fill 0.4s, stroke 0.4s; }
+.dw-map__zone text { fill: var(--mist); font: 500 8px var(--mono); text-anchor: middle; letter-spacing: 1px; }
+.dw-map__zone.is-on circle { fill: var(--zone); stroke: var(--zone); }
+.dw-map__zone.is-on text { fill: var(--ivory); }
+.dw-map__me path { fill: var(--ivory); filter: drop-shadow(0 0 4px rgba(255,255,255,0.8)); }
+
+/* ---------- Guide de la zone : où je suis, quoi faire ---------- */
+.dw-guide {
+  position: absolute; left: var(--pad); bottom: 22px; z-index: 9;
+  width: min(330px, 26vw); display: grid; gap: 6px;
+  padding: 14px 16px 14px 18px;
+  background: rgba(10, 8, 16, 0.6); backdrop-filter: blur(12px);
+  border-left: 2px solid var(--zone);
+}
+.dw-guide__where { color: var(--zone); }
+.dw-guide p { font-size: 14px; line-height: 1.45; color: rgba(242,238,229,0.92); }
+.dw-guide__keys { color: var(--mist); font-size: 10px; }
+
+/* ---------- Étiquettes sur les objets 3D ---------- */
+.dw-tags { position: absolute; inset: 0; z-index: 8; pointer-events: none; transition: opacity 0.35s; }
+.dw-tags.is-hidden { opacity: 0 !important; }
+.dw-tags.is-hidden .dw-tag { pointer-events: none; }
+.dw-tag {
+  position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  margin: -12px 0 0 -9px; padding: 0; border: 0; background: none; color: var(--ivory); text-align: left;
+  will-change: transform;
+}
+.dw-tag i {
+  position: relative; flex: none; width: 18px; height: 18px; border-radius: 50%;
+  border: 1.5px solid var(--zone); background: rgba(10,8,16,0.5);
+}
+.dw-tag i::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--zone); }
+.dw-tag i::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid var(--zone); animation: dw-ping 2.2s var(--ease) infinite; animation-delay: calc(var(--i) * 180ms); }
+@keyframes dw-ping { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(1.7); opacity: 0; } }
+.dw-tag span {
+  display: grid; gap: 1px; padding: 6px 10px 7px;
+  background: rgba(10, 8, 16, 0.72); backdrop-filter: blur(8px);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: background 0.25s, color 0.25s;
+}
+.dw-tag strong { font-family: var(--display); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0; white-space: nowrap; }
+.dw-tag small { color: var(--mist); font-size: 9px; white-space: nowrap; }
+.dw-tag:hover span, .dw-tag:focus-visible span { background: var(--zone); color: var(--night); }
+.dw-tag:hover small { color: rgba(10,10,14,0.7); }
+.dw-tag--travel span { background: var(--zone); color: var(--night); }
+.dw-tag--travel small { color: rgba(10,10,14,0.65); }
+.dw-tag.is-off { opacity: 0; pointer-events: none; }
+.dw-tag--left { flex-direction: row-reverse; translate: calc(-100% + 18px) 0; }
+
+/* ---------- Infobulle des objets ---------- */
+.dw__tip {
+  position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none;
+  display: grid; gap: 2px; padding: 9px 12px;
+  background: rgba(8, 6, 12, 0.88); border-left: 2px solid var(--zone);
+  opacity: 0; transition: opacity 0.2s;
+}
+.dw__tip.is-on { opacity: 1; }
+.dw__tip strong { font-family: var(--font); font-size: 15px; letter-spacing: 0; text-transform: none; font-weight: 700; }
+.dw__tip span { color: var(--mist); }
+
+/* ---------- Panneau de détail ---------- */
+.dw-panel {
+  position: absolute; z-index: 20; right: var(--pad); top: 84px; bottom: 96px;
+  width: min(440px, calc(100vw - 2 * var(--pad)));
+  display: flex; flex-direction: column;
+  background: rgba(12, 9, 18, 0.82); backdrop-filter: blur(18px) saturate(1.2);
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  transform: translateX(40px); opacity: 0;
+  transition: transform 0.55s var(--ease), opacity 0.4s;
+}
+.dw-panel.is-wide { width: min(520px, calc(100vw - 2 * var(--pad))); }
+.dw-panel.is-open { transform: none; opacity: 1; }
+.dw-panel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--zone); }
+.dw-panel__close {
+  position: absolute; right: 14px; top: 12px; z-index: 2;
+  width: 38px; height: 38px; border: 0; cursor: pointer; font-size: 24px; line-height: 1;
+  background: rgba(242,238,229,0.08); color: var(--ivory);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: background 0.25s, color 0.25s;
+}
+.dw-panel__close:hover { background: var(--zone); color: var(--night); }
+.dw-panel__body { overflow: auto; padding: 30px 30px 32px; display: grid; gap: 14px; align-content: start; scrollbar-width: thin; }
+.dw-panel__kicker { color: var(--z, var(--zone)); padding-right: 40px; }
+.dw-panel__title { font-size: clamp(22px, 2.2vw, 32px); line-height: 1; }
+.dw-panel__title .serif { color: var(--zone); font-size: 1.1em; }
+.dw-panel__lead { font-size: 17px; line-height: 1.5; }
+.dw-panel__text { color: rgba(242,238,229,0.82); font-size: 15px; white-space: pre-line; }
+.dw-panel__meta { color: var(--mist); }
+.dw-panel__h { color: var(--zone); margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--line-dark); }
+.dw-panel__note { color: var(--mist); margin-top: 6px; }
+.dw-panel__actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.dw-panel .btn { --b-bg: var(--zone); }
+.dw-panel .tags li { border-color: rgba(242,238,229,0.3); }
+
+.dw-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0; }
+.dw-facts div { background: rgba(242,238,229,0.05); padding: 12px; }
+.dw-facts dt { color: var(--mist); }
+.dw-facts dd { margin: 4px 0 0; font-family: var(--display); font-weight: 800; font-size: 28px; line-height: 1; color: var(--zone); }
+
+.dw-skills { display: grid; gap: 0; }
+.dw-skills li { display: grid; grid-template-columns: 1fr auto 76px; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line-dark); }
+.dw-skills__name { font-weight: 600; }
+.dw-skills__lvl { display: flex; gap: 3px; }
+.dw-skills__lvl i { width: 14px; height: 6px; background: rgba(242,238,229,0.14); transform: skewX(-20deg); }
+.dw-skills__lvl i.on { background: var(--zone); box-shadow: 0 0 8px var(--zone); }
+.dw-skills .mono { color: var(--mist); text-align: right; }
+
+.dw-list { display: grid; gap: 4px; }
+.dw-list button {
+  width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+  text-align: left; padding: 12px 14px; border: 0; cursor: pointer;
+  background: rgba(242,238,229,0.05); transition: background 0.25s, transform 0.3s var(--ease);
+}
+.dw-list button strong { font-weight: 700; }
+.dw-list button .mono { color: var(--zone); }
+.dw-list button svg { width: 16px; }
+.dw-list button:hover, .dw-list button:focus-visible { background: rgba(242,238,229,0.12); transform: translateX(4px); }
+
+.dw-plates { margin-top: 8px; }
+.dw-plates .plate { grid-template-columns: 76px 1fr auto; padding: 14px 18px; background: var(--persona); }
+.dw-plates .plate .mono { color: var(--night); }
+.dw-plates .plate strong { font-size: 17px; }
+.dw-plates .plate:hover { box-shadow: 6px 6px 0 0 var(--ivory); }
+
+/* ---------- Transition de voyage : cinémascope + carton ---------- */
+.dw__fx { position: absolute; inset: 0; z-index: 15; pointer-events: none; }
+.dw__bar { position: absolute; left: 0; right: 0; height: 6vh; background: #000; transition: transform 0.7s var(--ease); }
+.dw__bar--t { top: 0; transform: translateY(-100%); }
+.dw__bar--b { bottom: 0; transform: translateY(100%); }
+.dw.is-travel .dw__bar { transform: none; }
+.dw__speed {
+  position: absolute; inset: -20%;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,236,210,0.0) 0deg 3.2deg, rgba(255,236,210,0.07) 3.4deg 3.6deg);
+  mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 70%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 22%, #000 70%);
+  opacity: 0; transition: opacity 0.8s;
+}
+.dw.is-travel .dw__speed { opacity: 1; animation: dw-spin 2.6s linear; }
+@keyframes dw-spin { to { transform: rotate(8deg) scale(1.1); } }
+
+.dw__card {
+  position: absolute; left: var(--pad); top: calc(6vh + 70px); z-index: 16; pointer-events: none;
+  display: flex; align-items: baseline; gap: 14px; padding: 10px 22px 12px 16px;
+  background: var(--z, var(--zone)); color: var(--night);
+  transform: translateX(-30px) skewX(-10deg); opacity: 0;
+  transition: transform 0.45s var(--ease-snap), opacity 0.3s;
+}
+.dw__card .mono { color: rgba(10,10,14,0.75); }
+.dw__card strong { font-size: clamp(22px, 2.6vw, 38px); line-height: 1; }
+.dw__card.is-on { transform: skewX(-10deg); opacity: 1; }
+
+/* ---------- Porte d'entrée : Explore ou Accès rapide ---------- */
+.dw-gate {
+  position: absolute; inset: 0; z-index: 40;
+  display: flex; align-items: flex-end;
+  padding: clamp(24px, 6vw, 80px) var(--pad);
+  background:
+    linear-gradient(90deg, rgba(7,5,11,0.92) 0%, rgba(7,5,11,0.55) 50%, rgba(7,5,11,0.1) 100%),
+    linear-gradient(0deg, rgba(7,5,11,0.9) 0%, rgba(7,5,11,0) 60%);
+  transition: opacity 0.9s var(--ease), transform 1.2s var(--ease);
+}
+.dw-gate.is-gone { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.dw-gate__inner { display: grid; gap: 20px; max-width: 760px; }
+.dw-gate__kicker { color: var(--dusk); display: flex; align-items: center; gap: 12px; }
+.dw-gate__kicker::before { content: ""; width: 28px; height: 2px; background: var(--dusk); }
+.dw-gate__title { font-size: clamp(46px, 7.6vw, 124px); line-height: 0.88; }
+.dw-gate__title .serif { color: var(--dusk); font-size: 1.08em; text-transform: none; }
+.dw-gate__lead { max-width: 46ch; font-size: 17px; color: rgba(242,238,229,0.85); }
+.dw-gate__load { display: grid; gap: 8px; max-width: 420px; }
+.dw-gate__load i { display: block; height: 2px; background: var(--dusk); transform: scaleX(0); transform-origin: left; transition: transform 0.6s var(--ease); box-shadow: 0 0 12px var(--dusk); }
+.dw-gate__load span { color: var(--mist); }
+.dw-gate__choices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+.dw-choice {
+  position: relative; display: grid; gap: 6px; text-align: left; text-decoration: none; cursor: pointer;
+  padding: 20px 22px 22px; border: 0; color: var(--ivory);
+  background: rgba(242,238,229,0.07); backdrop-filter: blur(10px);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  transition: background 0.3s, color 0.3s, transform 0.4s var(--ease);
+}
+.dw-choice .mono { color: var(--dusk); }
+.dw-choice strong { font-size: clamp(22px, 2.2vw, 32px); line-height: 1; }
+.dw-choice > span:not(.mono) { color: rgba(242,238,229,0.75); font-size: 14px; }
+.dw-choice kbd { position: absolute; right: 16px; top: 18px; color: var(--mist); font-size: 10px; border: 1px solid currentColor; padding: 2px 6px; }
+.dw-choice--explore { background: var(--dusk); color: var(--night); }
+.dw-choice--explore .mono, .dw-choice--explore > span:not(.mono), .dw-choice--explore kbd { color: rgba(10,10,14,0.75); }
+.dw-choice:hover, .dw-choice:focus-visible { transform: translateY(-4px); }
+.dw-choice:not(.dw-choice--explore):hover { background: rgba(242,238,229,0.16); }
+.dw-choice[disabled] { opacity: 0.45; cursor: wait; transform: none; }
+
+/* ---------- Lien vers le monde depuis l'accès rapide ---------- */
+.explore-link {
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  padding: 8px 12px; background: var(--accent); color: var(--night);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  transition: background 0.6s, transform 0.3s var(--ease);
+}
+.explore-link i { width: 8px; height: 8px; border: 1.5px solid currentColor; transform: rotate(45deg); }
+.explore-link:hover { transform: translateY(-2px); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .dw-nav__stop { min-width: 0; }
+  .dw-nav__stop small { display: none; }
+  .dw-guide { width: 280px; }
+}
+@media (max-width: 760px) {
+  .dw__top { grid-template-columns: 1fr auto; padding: 14px 16px; }
+  .dw__where { display: none; }
+  .dw__brand small { display: none; }
+  .dw__actions .btn--small .btn__label { padding: 10px 10px 10px 12px; }
+  .dw__actions .btn--small .btn__icon { display: none; }
+  .dw-nav { left: 10px; right: 10px; bottom: 10px; transform: none; overflow-x: auto; scrollbar-width: none; }
+  .dw-nav__stop { flex: 1; grid-template-columns: 1fr; padding: 8px 10px; }
+  .dw-nav__stop .mono { grid-row: auto; }
+  .dw-nav__stop strong { font-size: 14px; white-space: nowrap; }
+  .dw-objects { left: 10px; right: 10px; top: auto; bottom: 86px; width: auto; transform: none; }
+  .dw-objects ul { max-height: 30vh; }
+  .dw-map { display: none; }
+  .dw-panel, .dw-panel.is-wide { left: 10px; right: 10px; width: auto; top: 70px; bottom: 80px; }
+  .dw-gate { align-items: flex-end; padding-bottom: 28px; }
+  .dw-gate__choices { grid-template-columns: 1fr; }
+  .dw-choice kbd { display: none; }
+  .dw__card strong { font-size: 22px; }
+  .dw-guide { left: 10px; right: 10px; width: auto; bottom: 74px; padding: 10px 12px; }
+  .dw-guide__keys { display: none; }
+  .dw-guide p { font-size: 13px; }
+  .dw-objects { bottom: auto; top: 64px; }
+  .dw-tag small { display: none; }
+  .dw__actions [data-back] { display: none; }
+  .dw__actions { gap: 6px; }
+  .dw__actions .btn__label { font-size: 10px; letter-spacing: 0.08em; }
+  .dw-nav__stop { padding: 8px 6px; }
+  .dw-nav__stop strong { font-size: 10px; white-space: normal; letter-spacing: -0.02em; }
+  .explore-link { display: none; }
+}

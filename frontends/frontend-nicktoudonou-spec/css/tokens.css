@@ -1,0 +1,97 @@
+/* ==========================================================================
+   TOKENS — identité visuelle v3 « SIGNAL / CITY »
+   Une structure suisse invisible (grille, alignements), et un univers de
+   couleur par section : le site traverse des "mondes" comme un jeu.
+   ========================================================================== */
+
+/* ---------- Polices auto-hébergées (assets/fonts) ---------- */
+@font-face {
+  font-family: "Archivo";
+  src: url("../assets/fonts/archivo-var.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("../assets/fonts/manrope-var.woff2") format("woff2-variations");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Syne";
+  src: url("../assets/fonts/syne-var.woff2") format("woff2-variations");
+  font-weight: 400 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("../assets/fonts/instrument-serif-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../assets/fonts/plex-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../assets/fonts/plex-mono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  /* Base */
+  --night: #0A0A0E;         /* noir profond (scènes) */
+  --ivory: #F2EEE5;         /* ivoire (espaces contemplatifs) */
+  --ivory-2: #E7E1D4;
+  --ink: #141418;
+  --ash: #8E8A82;           /* texte secondaire sur ivoire */
+  --mist: #A7A6B2;          /* texte secondaire sur nuit */
+  --line-light: rgba(20, 20, 24, 0.14);
+  --line-dark: rgba(242, 238, 229, 0.14);
+
+  /* Mondes (une couleur signal par section) */
+  --dusk: #FFB36B;          /* 00 Hero — heure dorée */
+  --dusk-rose: #FF6F91;
+  --neon-cyan: #2BE4FF;     /* 04 Experience — néon */
+  --neon-magenta: #FF3CD6;
+  --crimson: #E8262E;       /* 03 Expertise — monolithe */
+  --signal: #D7FF46;        /* 05 Map — données */
+  --persona: #E60012;       /* 06 Contact — rouge */
+
+  /* Accent courant : changé par section (voir js/chrome.js) */
+  --accent: var(--dusk);
+
+  /* Typographie */
+  --font: "Manrope", "Helvetica Neue", system-ui, sans-serif;   /* texte : sobre et lisible */
+  --serif: "Instrument Serif", Georgia, serif;
+  --display: "Syne", "Archivo", sans-serif;   /* titres : grotesque artistique, large */
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  /* Échelle (plus mesurée qu'en v2) */
+  --fs-hero: clamp(32px, 4.3vw, 70px);
+  --fs-h2: clamp(26px, 2.9vw, 44px);
+  --fs-h3: clamp(20px, 1.7vw, 26px);
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-mono: 11px;
+
+  /* Grille */
+  --max: 1400px;
+  --pad: clamp(16px, 4vw, 56px);
+  --gutter: clamp(12px, 1.6vw, 24px);
+  --header-h: 68px;
+
+  /* Formes : coins coupés (signature HUD) */
+  --cut: 12px;
+  --chamfer: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+
+  /* Mouvement */
+  --ease: cubic-bezier(0.2, 0.7, 0, 1);
+  --ease-snap: cubic-bezier(0.7, 0, 0.2, 1);
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "projet_slug": "portfolio-cedric-akle",
+    "candidat_slug": "cedric-akle",
+    "titre": "Portfolio polyglotte",
+    "description": "Ce site : une API FastAPI qui sert mon profil depuis MongoDB Atlas et mon graphe de compétences depuis Neo4j Aura.",
+    "description_longue": "Projet du cours NoSQL de l'ESIGELEC. Les données descriptives (profil, projets) sont stockées dans MongoDB, les relations (candidat, projets, compétences, domaines) dans Neo4j. Le frontend consomme les routes de l'API : profil, projets filtrables par compétence, statistiques, projets similaires et graphe de compétences.",
+    "annee": 2026,
+    "competences": [
+      "python",
+      "fastapi",
+      "mongodb",
+      "neo4j",
+      "git"
+    ],
+    "lien_repo": null,
+    "lien_demo": null
+  },
+  {
+    "projet_slug": "repartition-etudiants",
+    "candidat_slug": "cedric-akle",
+    "titre": "Répartition automatique des étudiants",
+    "description": "Application qui affecte automatiquement les étudiants selon leurs préférences et leur classement.",
+    "description_longue": "Conception d'une application d'affectation automatique des étudiants, basée sur leurs vœux et leur classement, avec stockage des données en SQL et travail en équipe sur GitHub (avril à mai 2025).",
+    "annee": 2025,
+    "competences": [
+      "java",
+      "sql",
+      "git"
+    ],
+    "lien_repo": null,
+    "lien_demo": null
+  },
+  {
+    "projet_slug": "maven-cycles-dashboard",
+    "candidat_slug": "cedric-akle",
+    "titre": "Maven Cycles — Data Visualisation",
+    "description": "Analyse de données et dashboard interactif pour suivre les volumes et les tendances de ventes.",
+    "description_longue": "Analyse du jeu de données Maven Cycles : création d'indicateurs de performance et conception d'un dashboard interactif Power BI pour analyser les volumes et les tendances (avril 2024).",
+    "annee": 2024,
+    "competences": [
+      "powerbi",
+      "excel"
+    ],
+    "lien_repo": null,
+    "lien_demo": null
+  }
+]

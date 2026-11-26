@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cédric Akle — Data Analyst</title>
+  <meta name="description" content="Portfolio de Cédric Akle, élève-ingénieur Big Data à l'ESIGELEC : projets data, compétences mesurées et parcours, servis par une API FastAPI, MongoDB et Neo4j.">
+  <meta name="theme-color" content="#0A0A0E">
+  <meta property="og:title" content="Cédric Akle — Data Analyst">
+  <meta property="og:description" content="I turn complex data into clarity. Projets, compétences et parcours.">
+  <meta property="og:type" content="website">
+
+  <link rel="preload" href="assets/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/syne-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/world.css">
+</head>
+<body>
+  <a class="skip" href="#app">Aller au contenu</a>
+
+  <!-- Barre de progression du scroll -->
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- En-tête -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#/quick" aria-label="Cédric Akle, haut du portfolio">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Cédric Akle</span>
+        <small class="mono">Data Analyst</small>
+      </a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#/work"><span class="mono">01</span>Work</a>
+        <a href="#/about"><span class="mono">02</span>About</a>
+        <a href="#/expertise"><span class="mono">03</span>Expertise</a>
+        <a href="#/experience"><span class="mono">04</span>Experience</a>
+        <a href="#/map"><span class="mono">05</span>Map</a>
+        <a href="#/contact"><span class="mono">06</span>Contact</a>
+      </nav>
+
+      <div class="site-header__end">
+        <span class="status mono js-status"><i aria-hidden="true"></i><span>Disponible</span></span>
+        <a class="explore-link mono" href="#/city"><i aria-hidden="true"></i>Explore mode</a>
+        <button class="menu-btn mono" type="button" aria-expanded="false" aria-controls="menu">
+          <span class="menu-btn__label">Menu</span>
+          <span class="menu-btn__icon" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu plein écran (mobile) -->
+  <div class="menu" id="menu" hidden>
+    <nav class="container menu__nav" aria-label="Menu">
+      <a href="#/work"><span class="mono">01</span>Work</a>
+      <a href="#/about"><span class="mono">02</span>About</a>
+      <a href="#/expertise"><span class="mono">03</span>Expertise</a>
+      <a href="#/experience"><span class="mono">04</span>Experience</a>
+      <a href="#/map"><span class="mono">05</span>Map</a>
+      <a href="#/contact"><span class="mono">06</span>Contact</a>
+      <a href="#/city"><span class="mono">3D</span>Explore</a>
+    </nav>
+    <p class="container menu__foot mono">Explore. Discover. Understand.</p>
+  </div>
+
+  <!-- Contenu : rempli par js/router.js -->
+  <main id="app" tabindex="-1"></main>
+
+  <!-- Rail de navigation (droite) : une marque par section -->
+  <nav class="rail mono" aria-label="Sections">
+    <a href="#/quick"><span class="rail__label">Intro</span><span class="rail__tick"></span></a>
+    <a href="#/work"><span class="rail__label">Work</span><span class="rail__tick"></span></a>
+    <a href="#/about"><span class="rail__label">About</span><span class="rail__tick"></span></a>
+    <a href="#/expertise"><span class="rail__label">Expertise</span><span class="rail__tick"></span></a>
+    <a href="#/experience"><span class="rail__label">Experience</span><span class="rail__tick"></span></a>
+    <a href="#/map"><span class="rail__label">Map</span><span class="rail__tick"></span></a>
+    <a href="#/contact"><span class="rail__label">Contact</span><span class="rail__tick"></span></a>
+  </nav>
+
+  <!-- Transition entre les pages -->
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <!-- Infobulle du graphe -->
+  <div class="graph-tip mono" aria-hidden="true"></div>
+
+  <noscript><p class="noscript">Ce portfolio a besoin de JavaScript pour charger les données depuis l'API.</p></noscript>
+
+  <!-- Three.js est servi en local (vendor/) : aucune installation, aucun CDN -->
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

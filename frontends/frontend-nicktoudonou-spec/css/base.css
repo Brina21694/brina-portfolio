@@ -1,0 +1,114 @@
+/* ==========================================================================
+   BASE — reset, typographie, grille, utilitaires, mouvement.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ivory);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  font-stretch: 100%;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, canvas { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, h4 { margin: 0; font-weight: 700; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--accent); color: var(--night); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+#app { outline: none; transition: opacity 0.18s linear; }
+body.is-fading #app { opacity: 0; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip {
+  position: fixed; left: var(--pad); top: -100px; z-index: 300;
+  background: var(--accent); color: var(--night); padding: 10px 14px;
+  font-weight: 700; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.noscript { padding: 120px var(--pad); }
+
+/* ---------- Grille (structure suisse, invisible) ---------- */
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+
+/* ---------- Typographie ---------- */
+.mono {
+  font-family: var(--mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; text-transform: none; }
+
+/* Titres "affiche de cinéma" : étroits, gras, capitales */
+.display {
+  font-family: var(--display);
+  font-weight: 800;
+  font-stretch: normal;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.h2 { font-size: var(--fs-h2); }
+
+.muted { color: var(--mist); }
+.on-ivory .muted { color: var(--ash); }
+
+/* ---------- Images ---------- */
+.photo { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- États ---------- */
+.skeleton { background: rgba(242, 238, 229, 0.06); animation: pulse 1.6s ease-in-out infinite; }
+.on-ivory .skeleton { background: rgba(20, 20, 24, 0.07); }
+@keyframes pulse { 50% { opacity: 0.4; } }
+
+.state {
+  border: 1px dashed currentColor;
+  padding: 18px 20px;
+  display: grid; gap: 6px;
+  max-width: 620px;
+  opacity: 0.85;
+}
+.state p { font-size: var(--fs-small); }
+
+/* ---------- Apparitions ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Titre révélé ligne par ligne */
+.split .line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.split .line > span {
+  display: inline-block; transform: translateY(110%);
+  transition: transform 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 100ms + var(--d, 0ms));
+}
+.split.is-in .line > span, .is-ready .split .line > span { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  [data-reveal] { transform: none; }
+  .split .line > span { transform: none; }
+}
