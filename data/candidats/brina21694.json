@@ -1,0 +1,53 @@
+{
+  "candidat_slug": "brina-achouke",
+  "prenom": "Brina",
+  "nom": "Achouke",
+  "titre": "Élève-ingénieure Big Data — ESIGELEC",
+  "bio": "Élève-ingénieure en Big Data, je développe mes compétences en analyse de données, Big Data et Business Intelligence. Je recherche un stage de fin d'études de 6 mois en Data Analyst, à partir de mars 2027.",
+  "email": "brina.achouke@groupe-esigelec.org",
+  "liens": {
+    "linkedin": "https://www.linkedin.com/in/brina-achouke"
+  },
+  "experiences": [
+    {
+      "entreprise": "Société des Aéroports du Bénin",
+      "poste": "Technicienne IT — Stage",
+      "lieu": "Cotonou",
+      "debut": "2023-06",
+      "fin": "2023-07",
+      "description": "Assistance à la gestion du réseau informatique interne et soutien à la maintenance des systèmes.",
+      "competences": []
+    }
+  ],
+  "formations": [
+    {
+      "ecole": "ESIGELEC",
+      "diplome": "Cycle ingénieur — Big Data pour la Transformation Numérique (BDTN)",
+      "lieu": "Saint-Étienne-du-Rouvray",
+      "debut": "2024-09",
+      "fin": "2027-06"
+    },
+    {
+      "ecole": "Père Aupiais",
+      "diplome": "Cycle préparatoire scientifique",
+      "lieu": "Cotonou",
+      "debut": "2022-09",
+      "fin": "2024-06"
+    }
+  ],
+  "competences": [
+    { "skill_slug": "python", "nom": "Python", "domaine": "langages", "niveau": 3 },
+    { "skill_slug": "sql", "nom": "SQL", "domaine": "bases-de-donnees", "niveau": 3 },
+    { "skill_slug": "pandas", "nom": "Pandas", "domaine": "data-analysis", "niveau": 3 },
+    { "skill_slug": "numpy", "nom": "NumPy", "domaine": "data-analysis", "niveau": 3 },
+    { "skill_slug": "matplotlib", "nom": "Matplotlib", "domaine": "data-analysis", "niveau": 3 },
+    { "skill_slug": "seaborn", "nom": "Seaborn", "domaine": "data-analysis", "niveau": 3 },
+    { "skill_slug": "pyspark", "nom": "PySpark", "domaine": "big-data", "niveau": 3 },
+    { "skill_slug": "spark-sql", "nom": "Spark SQL", "domaine": "big-data", "niveau": 3 },
+    { "skill_slug": "spark-ml", "nom": "Spark ML", "domaine": "big-data", "niveau": 3 },
+    { "skill_slug": "powerbi", "nom": "Power BI", "domaine": "data-visualization", "niveau": 3 },
+    { "skill_slug": "power-query", "nom": "Power Query", "domaine": "data-visualization", "niveau": 3 },
+    { "skill_slug": "dax", "nom": "DAX", "domaine": "data-visualization", "niveau": 3 },
+    { "skill_slug": "scikit-learn", "nom": "Scikit-learn", "domaine": "machine-learning", "niveau": 3 }
+  ]
+}

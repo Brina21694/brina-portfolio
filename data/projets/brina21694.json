@@ -1,0 +1,35 @@
+[
+  {
+    "projet_slug": "prediction-salaires-tech",
+    "candidat_slug": "brina-achouke",
+    "titre": "Prédiction des salaires dans le secteur technologique",
+    "description": "Comparaison de trois modèles de Machine Learning pour prédire un salaire à partir du profil, sur 250 000 profils.",
+    "description_longue": "Analyse d'un jeu de données Kaggle de 250 000 profils : exploration, corrélations, puis comparaison d'une régression linéaire, d'un arbre de décision et d'une forêt aléatoire. Le meilleur modèle est l'arbre de décision (R² de 0,43).",
+    "annee": 2026,
+    "competences": ["python", "pandas", "numpy", "matplotlib", "seaborn", "scikit-learn"],
+    "lien_repo": null,
+    "lien_demo": null
+  },
+  {
+    "projet_slug": "pilotage-prets-immobiliers",
+    "candidat_slug": "brina-achouke",
+    "titre": "Tableau de bord de pilotage des prêts immobiliers",
+    "description": "Un tableau de bord Power BI de 5 pages pour une banque fictive, afin de décider plus vite et de mieux valider les dossiers de prêts.",
+    "description_longue": "Tableau de bord Power BI en 5 pages construit sur les prêts d'une banque fictive (2018–2021), avec préparation des données dans Power Query et indicateurs en DAX.",
+    "annee": 2026,
+    "competences": ["powerbi", "power-query", "dax"],
+    "lien_repo": null,
+    "lien_demo": null
+  },
+  {
+    "projet_slug": "analyse-velib-spark",
+    "candidat_slug": "brina-achouke",
+    "titre": "Analyse de données Vélib à grande échelle",
+    "description": "Traitement de plus de 4,8 millions de lignes de logs avec PySpark et Spark SQL, puis prédiction du sexe d'un cycliste avec Spark ML.",
+    "description_longue": "Traitement de 4 868 396 lignes de logs Vélib avec PySpark et Spark SQL, puis comparaison de trois modèles Spark ML (forêt aléatoire, arbre de décision, régression logistique).",
+    "annee": 2025,
+    "competences": ["pyspark", "spark-sql", "spark-ml", "python"],
+    "lien_repo": null,
+    "lien_demo": null
+  }
+]

@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* ───────────── DATA UNIVERSE : palette et typographie ───────────── */
+@theme {
+  /* Fonds : du noir bleuté au bleu nuit */
+  --color-void: #030814;      /* noir bleuté */
+  --color-night: #07122b;     /* bleu nuit profond */
+  --color-deep: #0b1d44;      /* bleu nuit clair (cartes, bandeaux) */
+
+  /* Accents lumineux */
+  --color-cyan-glow: #22e5ff; /* cyan lumineux */
+  --color-electric: #2f6bff;  /* bleu électrique */
+
+  /* Textes */
+  --color-ink: #ffffff;
+  --color-ink-soft: #b9c7e6;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+
+  --shadow-glow: 0 0 24px rgb(34 229 255 / 0.35);
+}
+
+/* ───────────── Base ───────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-void);
+    background-image:
+      radial-gradient(60rem 40rem at 80% -10%, rgb(47 107 255 / 0.22), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 20%, rgb(34 229 255 / 0.12), transparent 60%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Accessibilité : focus toujours visible au clavier */
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-glow);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Effet « verre » réutilisable : <div class="glass"> */
+@layer components {
+  .glass {
+    background: rgb(11 29 68 / 0.45);
+    border: 1px solid rgb(185 199 230 / 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 1rem;
+  }
+}
+
+/* Accessibilité : respecter la préférence « réduire les animations » */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Flux de données animés (page d'accueil) */
+@keyframes data-flow {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1660; }
+}
+.data-flow {
+  animation: data-flow 8s linear infinite;
+  filter: drop-shadow(0 0 4px #22e5ff);
+}
