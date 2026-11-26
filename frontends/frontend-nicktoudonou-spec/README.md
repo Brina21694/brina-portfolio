@@ -1,9 +1,12 @@
-# Frontend de @nicktoudonou-spec
+# Frontend de @nicktoudonou-spec (Cédric AKLE)
+
+**Site déployé :** https://cedric-akle-portfolio.vercel.app  
+**API utilisée en ligne :** https://backend-lemon-five-v5x2aac1el.vercel.app
 
 - **Deux modes** :
   - **Explore** (`#/`) : *Data World*, un monde 3D explorable (Three.js r170, servi en local dans `vendor/three/`). La caméra voyage entre 4 lieux : **The City** (identité), **The Lab** (compétences), **Data Archive** (projets), **The Journey** (parcours). Contact et CV restent accessibles partout.
   - **Accès rapide** (`#/quick`) : le portfolio classique, sections et études de cas.
-- **Technologie** : HTML + CSS + JavaScript (modules ES, sans framework, rien à installer : Three.js est dans `vendor/`). Les décors (ville à l'heure dorée, rue néon, monolithe, champ ivoire) sont dessinés en code sur des `<canvas>` (`js/scenes.js`) : aucune image de jeu vidéo n'est utilisée. Le graphe Neo4j est dessiné par une petite simulation de forces écrite à la main (`js/graph.js`). Polices auto-hébergées dans `assets/fonts/` (Archivo, Instrument Serif, IBM Plex Mono, licence OFL).
+- **Technologie** : HTML + CSS + JavaScript (modules ES, sans framework, rien à installer : Three.js est dans `vendor/`). Les décors (ville à l'heure dorée, rue néon, monolithe, champ ivoire) sont dessinés en code sur des `<canvas>` (`js/scenes.js`) : aucune image de jeu vidéo n'est utilisée. Le graphe Neo4j est dessiné par une petite simulation de forces écrite à la main (`js/graph.js`). Polices auto-hébergées dans `assets/fonts/` : Syne (titres), Manrope (texte), Instrument Serif et IBM Plex Mono (licence OFL).
 - **Lancer** :
   1. Backend, à la racine du projet : `just dev` (API sur http://localhost:8000)
   2. Frontend, dans un 2e terminal :
@@ -29,7 +32,7 @@ js/world/textures.js  textes affichés dans la 3D (écrans, cubes, plaques), des
 js/world/index.js     interface du monde : porte d'entrée, navigation, panneaux, clavier, mini-carte
 css/world.css         styles du mode Explore
 vendor/three/         Three.js (licence MIT) + post-traitement (bloom)
-js/config.js          TOUT ce qui se personnalise (slug, textes, images, CV)
+js/config.js          TOUT ce qui se personnalise (slug, textes, images, CV, URL de l'API locale ou en ligne)
 js/api.js             le seul fichier qui parle au réseau
 js/data.js            une fonction par route + mise en cache + calculs de secours
 js/router.js          #/ , #/work ... , #/projet/<slug> , #/admin
@@ -71,3 +74,14 @@ Dépose `assets/hero.jpg` (une ville au coucher du soleil, à toi ou libre de dr
 | Contact / CV | bouton Contact | `5` |
 
 Sans WebGL, le site propose directement l'Accès rapide. Avec `prefers-reduced-motion`, les voyages deviennent des coupes franches et les animations ralentissent.
+
+## Déploiement (Vercel)
+
+Le site est statique : aucune compilation.
+
+```bash
+cd frontends/frontend-nicktoudonou-spec
+vercel --prod
+```
+
+`js/config.js` choisit l'API tout seul : `http://localhost:8000` en local, l'API Vercel en ligne. L'adresse du site doit figurer dans la variable `CORS_ORIGINS` du backend sur Vercel.
